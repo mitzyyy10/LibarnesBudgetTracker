@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+<nav class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'budget_list' %}">Budget</a>
+    </nav>
+
+{% block content %}
+
+{% endblock content%}
+
+</body>
+</html>

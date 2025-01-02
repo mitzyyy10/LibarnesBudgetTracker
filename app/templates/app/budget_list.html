@@ -1,0 +1,55 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="main-content">
+    <div class="form-section">
+        <div class="form-card">
+            <h2>Budget:</h2>
+            <form action="{% url 'income_add' %}" method="post">
+                {% csrf_token %}
+                {{ income_form.as_p }}
+                <button type="submit" class="btn">Edit</button>
+            </form>
+        </div>
+        <div class="form-card">
+            <h2>Expense:</h2>
+            <form action="{% url 'expense_add' %}" method="post">
+                {% csrf_token %}
+                {{ expense_form.as_p }}
+                <button type="submit" class="btn">Add</button>
+            </form>
+        </div>
+    </div>
+    <div class="budget-dashboard">
+        <div class="budget-summary">
+            <h3>Total Budget (Income): {{ budget.total_income }}</h3>
+            <h3>Total Expense: {{ budget.total_expense }}</h3>
+            <h3>Budget Left: {{ budget.budget_left }}</h3>
+        </div>
+        <h3>Expense History:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Expenses Name</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.category }}</td>
+                    <td>{{ expense.name }}</td>
+                    <td>{{ expense.amount }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'expense_edit' expense.pk %}" class="btn btn-secondary">Edit</a>
+                        <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
