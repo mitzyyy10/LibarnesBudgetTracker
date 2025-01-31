@@ -1,26 +1,30 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<div style="max-width: 500px; margin: 20px auto; padding: 20px;">
-    <div class="form-card">
-        <h2>{% if object %}Edit{% else %}Add{% endif %} Expense</h2>
-        <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
+{% include 'app/navbar.html' %}
+    <div class="main-content">
+        <div class="form-card">
+            <h2 class="form-title">Add Expense</h2>
+            <form method="post">
+                {% csrf_token %}
                 <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {% if field.errors %}
-                        {% for error in field.errors %}
-                            {% if error != "This field is required." %}
-                                <div class="error">{{ error }}</div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                    <label>Name:</label>
+                    {{ form.name }}
                 </div>
-            {% endfor %}
-            <button type="submit" class="btn">Save</button>
-        </form>
+                <div class="form-group">
+                    <label>Amount:</label>
+                    {{ form.amount }}
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    {{ form.category }}
+                </div>
+                <div class="form-group">
+                    <label>Date:</label>
+                    {{ form.date_spent }}
+                </div>
+                <button type="submit" class="btn">Add</button>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

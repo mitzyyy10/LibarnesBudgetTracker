@@ -1,17 +1,17 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<div style="max-width: 500px; margin: 20px auto; padding: 20px;">
-    <div class="form-card">
-        <h2>Delete Expense</h2>
-        <p>Are you sure you want to delete "{{ object.name }}"?</p>
-        <form method="post">
-            {% csrf_token %}
-            <div class="action-buttons">
-                <button type="submit" class="btn btn-danger">Yes</button>
-                <a href="{% url 'budget_list' %}" class="btn btn-secondary">Cancel</a>
-            </div>
-        </form>
+    <div style="max-width: 500px; margin: 20px auto; padding: 20px;">
+        <div class="form-card">
+            <h2>Delete Expense</h2>
+            <p>Are you sure you want to delete "{{ object.name }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <a href="{% url 'budget_list' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

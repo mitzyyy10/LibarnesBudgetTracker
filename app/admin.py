@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import User, Income, Category, Expense, Budget
+from .models import UserProfile, Income, Category, Expense, Budget
 
-admin.site.register(User)
+admin.site.register(UserProfile)
 admin.site.register(Income)
 admin.site.register(Category)
 admin.site.register(Expense)

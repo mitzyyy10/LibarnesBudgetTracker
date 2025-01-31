@@ -1,18 +1,19 @@
 {% extends 'app/base.html'%}
 {% load static %}
 {% block content %}
+    {% include 'app/navbar.html' %}
     <div class="intro-wrapper">
         <div class="intro-container">
             <h1>
-                "Manage your money, track with ease, <br>
+                Manage your money <br>
                 Plan for the future, fulfill your needs. <br>
-                Smart Budget Manager is here to stay, <br>
-                Guiding your finances, day by day."
+                Smart Budget Manager is here, <br>
+                Guiding your finances, day by day.
             </h1>
             <a href="{% url 'budget_list' %}" class="btn-get-started">Get Started</a>
         </div>
         <div class="image-container">
-            <img src="{% static 'images/side-pic.png' %}" alt="Smart Budget Manager" class="side-image">
+            <img src="{% static 'images/bg-login2.png' %}" alt="Smart Budget Manager" class="side-image">
         </div>
     </div>
 {% endblock content%}

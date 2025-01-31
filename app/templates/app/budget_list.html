@@ -1,55 +1,58 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<div class="main-content">
-    <div class="form-section">
-        <div class="form-card">
-            <h2>Budget:</h2>
-            <form action="{% url 'income_add' %}" method="post">
-                {% csrf_token %}
-                {{ income_form.as_p }}
-                <button type="submit" class="btn">Edit</button>
+    {% include 'app/navbar.html' %}
+    <div class="main-content">
+        <div class="action-buttons-container">
+            <a href="{% url 'income_add' %}" class="btn">Add Budget</a>
+            <a href="{% url 'expense_add' %}" class="btn">Add Expense</a>
+        </div>
+
+        <div class="date-filter-container" style="margin: 20px 0;">
+            <form method="get" style="display: flex; gap: 10px; align-items: center;">
+                <label for="start_date">Filter from date:</label>
+                <input type="date" id="start_date" name="start_date"
+                       value="{{ selected_date|default:'' }}"
+                       style="padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                <button type="submit" class="btn" style="margin-left: 10px;">Apply Filter</button>
+                {% if selected_date %}
+                    <a href="{% url 'budget_list' %}" class="btn" style="margin-left: 10px;">Clear Filter</a>
+                {% endif %}
             </form>
         </div>
-        <div class="form-card">
-            <h2>Expense:</h2>
-            <form action="{% url 'expense_add' %}" method="post">
-                {% csrf_token %}
-                {{ expense_form.as_p }}
-                <button type="submit" class="btn">Add</button>
-            </form>
-        </div>
-    </div>
-    <div class="budget-dashboard">
-        <div class="budget-summary">
-            <h3>Total Budget (Income): {{ budget.total_income }}</h3>
-            <h3>Total Expense: {{ budget.total_expense }}</h3>
-            <h3>Budget Left: {{ budget.budget_left }}</h3>
-        </div>
-        <h3>Expense History:</h3>
-        <table>
-            <thead>
+        <div class="budget-dashboard">
+            <div class="budget-summary">
+                <h3>Total Budget (Income): ₱{{ budget.total_income|floatformat:2 }}</h3>
+                <h3>Total Expense: ₱{{ budget.total_expense|floatformat:2 }}</h3>
+                <h3>Budget Left: ₱{{ budget.budget_left|floatformat:2 }}</h3>
+            </div>
+
+            <h3>Expense History</h3>
+            <table>
+                <thead>
                 <tr>
+                    <th>Date</th>
                     <th>Category</th>
                     <th>Expenses Name</th>
                     <th>Amount</th>
                     <th>Action</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {% for expense in expenses %}
-                <tr>
-                    <td>{{ expense.category }}</td>
-                    <td>{{ expense.name }}</td>
-                    <td>{{ expense.amount }}</td>
-                    <td class="action-buttons">
-                        <a href="{% url 'expense_edit' expense.pk %}" class="btn btn-secondary">Edit</a>
-                        <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-danger">Remove</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ expense.date_spent|date:"Y-m-d" }}</td>
+                        <td>{{ expense.category }}</td>
+                        <td>{{ expense.name }}</td>
+                        <td>₱{{ expense.amount|floatformat:2 }}</td>
+                        <td class="action-buttons">
+                            <a href="{% url 'expense_edit' expense.pk %}" class="btn btn-secondary">Edit</a>
+                            <a href="{% url 'expense_delete' expense.pk %}" class="btn btn-danger">Remove</a>
+                        </td>
+                    </tr>
                 {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 {% endblock %}
