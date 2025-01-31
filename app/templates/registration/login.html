@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="auth-container">
+        <div class="auth-left-panel">
+            <div class="auth-logo">
+                <i class="fa-solid fa-money-bill-wave"></i>
+                <h1>Budget Tracker</h1>
+            </div>
+            <p class="welcome-text">Welcome to our App</p>
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input type="text" name="username" id="username" placeholder="Enter Username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter Password">
+                </div>
+                <button type="submit" class="auth-button">Login</button>
+            </form>
+            <a href="{% url 'signup' %}" class="auth-link">Don't have account? Register</a>
+        </div>
+        <div class="auth-right-panel">
+            <img src="{% static 'images/bg-login2.png' %}" alt="Wave" class="wave-image">
+        </div>
+    </div>
+{% endblock content %}
